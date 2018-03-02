@@ -17,7 +17,8 @@ module Web3
       end
 
       def getBlockByNumber block, full = true, convert_to_object = true
-        resp = @web3_rpc.request("#{PREFIX}#{__method__}", [hex(block), full])
+        blockParameter = block.kind_of?(String) ? block : hex(block)
+        resp = @web3_rpc.request("#{PREFIX}#{__method__}", [blockParameter, full])
         convert_to_object ? Block.new(resp) : resp
       end
 
